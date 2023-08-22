@@ -1,19 +1,14 @@
-import { Body, Controller, Get, Param, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-
+// AppService: 공급자 => app.module에서 사업자등록을 해야함.
 @Controller()
+// AppController: 소비자
 export class AppController {
-  // 의존성 주입: class 안에서 service를 사용할 수 있게 해준다
+  // appService: 제품
   constructor(private readonly appService: AppService) {}
 
-  @Get('hello/:id/:name')
-  getHello(
-    @Req() req: Request,
-    @Body() Body,
-    @Param() param: { id: string; name: string },
-  ): string {
-    console.log(param);
+  @Get()
+  getHello(): string {
     return this.appService.getHello();
   }
 }
