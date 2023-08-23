@@ -29,6 +29,18 @@ export class Cat extends Document {
   @Prop()
   @IsString()
   imgurl: string;
+
+  // 하단의 virtual field 가져오기 => csts.service.ts에서 사용 가능
+  readonly readOnlyData: { id: string; email: string; name: string };
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
+
+// virtual field생성 : 유저에게 필요한 정보만 제공하기 위해
+CatSchema.virtual('readOnlyData').get(function (this: Cat) {
+  return {
+    id: this.id,
+    email: this.email,
+    name: this.name,
+  };
+});
