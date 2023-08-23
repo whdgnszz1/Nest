@@ -1,7 +1,9 @@
+import { CatRequestDto } from './dto/cats.request.dto';
 import { SuccessInterceptor } from './../common/interceptors/success.interceptor';
 import { HttpExceptionFilter } from '../common/exceptions/http-exception.filter';
 import { CatsService } from './cats.service';
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -21,7 +23,8 @@ export class CatsController {
   }
 
   @Post()
-  async signUp() {
+  async signUp(@Body() body: CatRequestDto) {
+    console.log(body);
     return 'sign up';
   }
 
