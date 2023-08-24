@@ -1,47 +1,27 @@
-import {
-  Controller,
-  Delete,
-  Get,
-  Patch,
-  Post,
-  Put,
-  // UseInterceptors,
-} from '@nestjs/common';
-// import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
+import { Controller, Get, Post } from '@nestjs/common';
 import { CatsService } from '../services/cats.service';
 
 @Controller('cats')
-// @UseInterceptors(SuccessInterceptor)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Get()
-  getAllCat() {
-    return 'all cat';
-  }
-
-  @Get(':id')
-  getOneCat() {
-    return 'one cat';
+  getCurrentCat() {
+    return 'current cat';
   }
 
   @Post()
-  createCat() {
-    return 'create cat';
+  async signUp() {
+    return 'sign up';
   }
 
-  @Put()
-  updateCat() {
-    return 'update cat';
+  @Post('login')
+  login() {
+    return 'login';
   }
 
-  @Patch()
-  updatePartialCat() {
-    return 'update partial cat';
-  }
-
-  @Delete(':id')
-  deleteCat() {
-    return 'delete cat';
+  @Post('upload')
+  uploadCatImg() {
+    return 'uploadImg';
   }
 }
