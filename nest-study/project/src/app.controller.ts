@@ -1,4 +1,4 @@
-import { CatsService } from './cats/cats.service';
+import { CatsService } from './cats/services/cats.service';
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 // AppService: 공급자 => app.module에서 사업자등록을 해야함.

@@ -39,4 +39,12 @@ export class CatsRepository {
       throw new HttpException('Cant find', 404);
     }
   }
+
+  async findByIdAndUpdateImg(id: string, fileName: string) {
+    const cat = await this.catModel.findById(id);
+    cat.imgurl = `http://localhost:8000/media/${fileName}`;
+    const newCat = await cat.save();
+    console.log(newCat);
+    return newCat.readOnlyData;
+  }
 }
