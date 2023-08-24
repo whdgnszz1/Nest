@@ -1,4 +1,5 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CatRequestDto } from '../dto/cats.request.dto';
 import { CatsService } from '../services/cats.service';
 
 @Controller('cats')
@@ -11,8 +12,8 @@ export class CatsController {
   }
 
   @Post()
-  async signUp() {
-    return 'sign up';
+  async signUp(@Body() body: CatRequestDto) {
+    return this.catsService.signUp(body);
   }
 
   @Post('login')
