@@ -29,4 +29,14 @@ export class CatsRepository {
       throw new HttpException('Cant find', 404);
     }
   }
+
+  async findCatByIdWithoutPassword(catId: string): Promise<Cat | null> {
+    try {
+      // select: field 여러개 중 원하는것만 골라 가져오기
+      const cat = await this.catModel.findById(catId).select('-password');
+      return cat;
+    } catch (error) {
+      throw new HttpException('Cant find', 404);
+    }
+  }
 }
