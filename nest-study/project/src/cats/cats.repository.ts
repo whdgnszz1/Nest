@@ -3,13 +3,20 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { Cat } from './cats.schema';
 import { Model, Types } from 'mongoose';
 import { CatRequestDto } from './dto/cats.request.dto';
+import { CommentsSchema } from 'src/comments/comments.schema';
+import * as mongoose from 'mongoose';
 
 @Injectable()
 export class CatsRepository {
   constructor(@InjectModel(Cat.name) private readonly catModel: Model<Cat>) {}
 
   async findAll() {
-    return await this.catModel.find();
+    const CommentsModel = mongoose.model('comments', CommentsSchema);
+    // populate를 사용해 comments 붙이기
+    const result = await this.catModel
+      .find()
+      .populate('comments', CommentsModel);
+    return result;
   }
 
   async existsByEmail(email: string): Promise<any> {

@@ -58,10 +58,10 @@ export class Cat extends Document {
   };
 }
 
-export const CatSchema = SchemaFactory.createForClass(Cat);
+const _CatSchema = SchemaFactory.createForClass(Cat);
 
 // virtual field생성 : 유저에게 필요한 정보만 제공하기 위해
-CatSchema.virtual('readOnlyData').get(function (this: Cat) {
+_CatSchema.virtual('readOnlyData').get(function (this: Cat) {
   return {
     id: this.id,
     email: this.email,
@@ -69,3 +69,15 @@ CatSchema.virtual('readOnlyData').get(function (this: Cat) {
     imgUrl: this.imgurl,
   };
 });
+
+_CatSchema.virtual('comments', {
+  // 해당하는 schema(collection name)
+  ref: 'comments',
+  localField: '_id',
+  // 어떤걸 기준으로 가져올거냐
+  foreignField: 'info',
+});
+_CatSchema.set('toObject', { virtuals: true });
+_CatSchema.set('toJSON', { virtuals: true });
+
+export const CatSchema = _CatSchema;
