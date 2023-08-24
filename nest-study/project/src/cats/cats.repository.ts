@@ -1,7 +1,7 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, HttpException } from '@nestjs/common';
 import { Cat } from './cats.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CatRequestDto } from './dto/cats.request.dto';
 
 @Injectable()
@@ -34,7 +34,9 @@ export class CatsRepository {
     }
   }
 
-  async findCatByIdWithoutPassword(catId: string): Promise<Cat | null> {
+  async findCatByIdWithoutPassword(
+    catId: string | Types.ObjectId,
+  ): Promise<Cat | null> {
     try {
       // select: field 여러개 중 원하는것만 골라 가져오기
       const cat = await this.catModel.findById(catId).select('-password');
