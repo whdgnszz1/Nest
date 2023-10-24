@@ -37,12 +37,15 @@ export class UsersService {
         nickname,
         password: hashedPassword,
       });
-      throw new Error('롤백');
+      // throw new Error('롤백');
+      console.log(returned);
       const workspaceMember = queryRunner.manager
         .getRepository(WorkspaceMembers)
         .create();
       workspaceMember.UserId = returned.id;
       workspaceMember.WorkspaceId = 1;
+
+      console.log(workspaceMember);
 
       await queryRunner.manager
         .getRepository(WorkspaceMembers)
